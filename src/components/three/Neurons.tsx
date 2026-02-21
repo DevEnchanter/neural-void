@@ -78,7 +78,11 @@ const fragmentShader = /* glsl */ `
   }
 `;
 
-export default function Neurons() {
+interface NeuronsProps {
+  onNeuronClick?: (neuronId: number) => void;
+}
+
+export default function Neurons({ onNeuronClick }: NeuronsProps) {
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const activationRef = useRef<Float32Array | null>(null);
   const layerRef = useRef<Float32Array | null>(null);
@@ -87,7 +91,6 @@ export default function Neurons() {
   const neurons = useNetworkStore((s) => s.neurons);
   const colorTheme = useNetworkStore((s) => s.colorTheme);
   const setHoveredNeuron = useNetworkStore((s) => s.setHoveredNeuron);
-  const activateNeuron = useNetworkStore((s) => s.activateNeuron);
 
   const geometry = useMemo(() => new THREE.IcosahedronGeometry(0.15, 2), []);
 
@@ -179,10 +182,12 @@ export default function Neurons() {
     (e: ThreeEvent<MouseEvent>) => {
       e.stopPropagation();
       if (e.instanceId !== undefined) {
-        activateNeuron(e.instanceId);
+        if (onNeuronClick) {
+          onNeuronClick(e.instanceId);
+        }
       }
     },
-    [activateNeuron],
+    [onNeuronClick],
   );
 
   if (!neurons.length) return null;

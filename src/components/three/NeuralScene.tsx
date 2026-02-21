@@ -5,6 +5,7 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import * as THREE from 'three';
 import { useNetworkStore } from '@/stores/networkStore';
+import { useEnergyPropagation } from '@/hooks/useEnergyPropagation';
 import Neurons from './Neurons';
 import Connections from './Connections';
 import NeuronLabel from './NeuronLabel';
@@ -13,16 +14,15 @@ import PostProcessing from '../effects/PostProcessing';
 function SceneContent() {
   const controlsRef = useRef<React.ComponentRef<typeof OrbitControls>>(null);
   const idleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const isIdle = useRef(true);
+
+  const { propagateEnergy } = useEnergyPropagation();
 
   const handleInteractionStart = () => {
-    isIdle.current = false;
     if (controlsRef.current) {
       (controlsRef.current as unknown as { autoRotate: boolean }).autoRotate = false;
     }
     if (idleTimer.current) clearTimeout(idleTimer.current);
     idleTimer.current = setTimeout(() => {
-      isIdle.current = true;
       if (controlsRef.current) {
         (controlsRef.current as unknown as { autoRotate: boolean }).autoRotate = true;
       }
@@ -47,7 +47,7 @@ function SceneContent() {
       <pointLight position={[-10, -5, -10]} color="#ff2020" intensity={1.0} />
       <fog attach="fog" args={['#000000', 15, 35]} />
       <Connections />
-      <Neurons />
+      <Neurons onNeuronClick={propagateEnergy} />
       <NeuronLabel />
       <PostProcessing />
     </>

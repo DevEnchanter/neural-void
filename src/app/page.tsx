@@ -6,22 +6,14 @@ import { AnimatePresence } from 'framer-motion';
 import { useNetworkStore } from '@/stores/networkStore';
 import LoadingScreen from '@/components/LoadingScreen';
 import HudHeader from '@/components/ui-overlays/HudHeader';
+import ControlBar from '@/components/ui-overlays/ControlBar';
+import StatsSidebar from '@/components/ui-overlays/StatsSidebar';
 import ImmersiveOverlay from '@/components/ui-overlays/ImmersiveOverlay';
 import ScanlineOverlay from '@/components/effects/ScanlineOverlay';
 import { useKeyboardControls } from '@/hooks/useKeyboardControls';
 
 const NeuralScene = dynamic(
   () => import('@/components/three/NeuralScene'),
-  { ssr: false }
-);
-
-// Lazy-load components that may not exist yet
-const ControlBar = dynamic(
-  () => import('@/components/ui-overlays/ControlBar').catch(() => () => null),
-  { ssr: false }
-);
-const StatsSidebar = dynamic(
-  () => import('@/components/ui-overlays/StatsSidebar').catch(() => () => null),
   { ssr: false }
 );
 
@@ -45,17 +37,15 @@ export default function Home() {
 
       <NeuralScene />
 
-      <AnimatePresence>
-        {!showLoading && (
-          <>
-            <HudHeader key="hud" />
-            <ControlBar key="controls" />
-            <StatsSidebar key="stats" />
-            <ImmersiveOverlay key="immersive" />
-            <ScanlineOverlay key="scanline" />
-          </>
-        )}
-      </AnimatePresence>
+      {!showLoading && (
+        <>
+          <HudHeader />
+          <ControlBar />
+          <StatsSidebar />
+          <ImmersiveOverlay />
+          <ScanlineOverlay />
+        </>
+      )}
     </div>
   );
 }
