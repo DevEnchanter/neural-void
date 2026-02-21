@@ -1,0 +1,62 @@
+'use client';
+
+import { useEffect, useMemo } from 'react';
+import {
+  EffectComposer,
+  Bloom,
+  ChromaticAberration,
+  Vignette,
+  Noise,
+  Scanline,
+  Glitch,
+} from '@react-three/postprocessing';
+import { BlendFunction, GlitchMode } from 'postprocessing';
+import { Vector2 } from 'three';
+import { useNetworkStore } from '@/stores/networkStore';
+
+export default function PostProcessing() {
+  const immersiveMode = useNetworkStore((s) => s.immersiveMode);
+  const glitchActive = useNetworkStore((s) => s.glitchActive);
+
+  const chromaticOffset = useMemo(() => {
+    const val = immersiveMode ? 0.005 : 0.002;
+    return new Vector2(val, val);
+  }, [immersiveMode]);
+
+  return (
+    <EffectComposer multisampling={0}>
+      <Bloom
+        luminanceThreshold={0.2}
+        luminanceSmoothing={0.9}
+        intensity={immersiveMode ? 3.5 : 2.0}
+        mipmapBlur
+      />
+      <ChromaticAberration
+        offset={chromaticOffset}
+        radialModulation={false}
+        modulationOffset={0.0}
+      />
+      <Vignette offset={0.3} darkness={0.9} />
+      <Noise
+        premultiply
+        blendFunction={BlendFunction.ADD}
+        opacity={immersiveMode ? 0.1 : 0.06}
+      />
+      <Scanline
+        blendFunction={BlendFunction.OVERLAY}
+        density={1.5}
+        opacity={0.07}
+      />
+      {glitchActive && (
+        <Glitch
+          delay={new Vector2(0, 0)}
+          duration={new Vector2(0.1, 0.3)}
+          strength={new Vector2(0.2, 0.4)}
+          mode={GlitchMode.SPORADIC}
+          active
+          ratio={0.85}
+        />
+      )}
+    </EffectComposer>
+  );
+}

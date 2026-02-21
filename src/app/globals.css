@@ -124,3 +124,95 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Neural Void UI animations */
+@keyframes void-pulse {
+  0%, 100% {
+    border-color: rgba(0, 224, 255, 0.3);
+    box-shadow: 0 0 5px rgba(0, 224, 255, 0.1);
+  }
+  50% {
+    border-color: rgba(0, 224, 255, 0.8);
+    box-shadow: 0 0 20px rgba(0, 224, 255, 0.3), 0 0 40px rgba(0, 224, 255, 0.1);
+  }
+}
+
+.void-button-glow {
+  animation: void-pulse 2s ease-in-out infinite;
+}
+
+/* ============================================
+   Neural Void Global Styles
+   ============================================ */
+
+html, body {
+  overflow: hidden;
+  background: #000000;
+  color: #00E0FF;
+}
+
+/* Scanline animation */
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+/* Film grain */
+@keyframes grain {
+  0%, 100% { background-position: 0 0; }
+  10% { background-position: -5% -10%; }
+  20% { background-position: -15% 5%; }
+  30% { background-position: 7% -25%; }
+  40% { background-position: 20% 25%; }
+  50% { background-position: -25% 10%; }
+  60% { background-position: 15% 5%; }
+  70% { background-position: 0% 15%; }
+  80% { background-position: 25% 35%; }
+  90% { background-position: -10% 10%; }
+}
+
+/* Glitch text effect */
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+/* Glow pulse */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 5px rgba(0, 224, 255, 0.3), 0 0 10px rgba(0, 224, 255, 0.1); }
+  50% { box-shadow: 0 0 10px rgba(0, 224, 255, 0.6), 0 0 20px rgba(0, 224, 255, 0.3), 0 0 30px rgba(0, 224, 255, 0.1); }
+}
+
+/* Typing cursor blink */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.typing-cursor {
+  animation: blink 1s step-end infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: #00E0FF33; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #00E0FF66; }
+
+/* Glow text utility */
+.text-glow-cyan {
+  text-shadow: 0 0 7px rgba(0, 224, 255, 0.7), 0 0 10px rgba(0, 224, 255, 0.5), 0 0 21px rgba(0, 224, 255, 0.3);
+}
+
+.text-glow-red {
+  text-shadow: 0 0 7px rgba(255, 26, 26, 0.7), 0 0 10px rgba(255, 26, 26, 0.5), 0 0 21px rgba(255, 26, 26, 0.3);
+}
+
+/* Border glow animation for buttons */
+.border-glow {
+  animation: glowPulse 2s ease-in-out infinite;
+}
