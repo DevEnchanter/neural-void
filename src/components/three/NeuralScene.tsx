@@ -8,6 +8,7 @@ import { useNetworkStore } from '@/stores/networkStore';
 import Neurons from './Neurons';
 import Connections from './Connections';
 import NeuronLabel from './NeuronLabel';
+import PostProcessing from '../effects/PostProcessing';
 
 function SceneContent() {
   const controlsRef = useRef<React.ComponentRef<typeof OrbitControls>>(null);
@@ -48,6 +49,7 @@ function SceneContent() {
       <Connections />
       <Neurons />
       <NeuronLabel />
+      <PostProcessing />
     </>
   );
 }
