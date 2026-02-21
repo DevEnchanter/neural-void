@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { TypingText } from './TypingText';
 
-export function HudHeader() {
+export default function HudHeader() {
   return (
     <motion.div
       initial={{ x: -20, opacity: 0 }}

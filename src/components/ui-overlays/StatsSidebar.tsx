@@ -19,7 +19,7 @@ function AsciiBar({ value, max = 1, width = 10 }: { value: number; max?: number;
   );
 }
 
-export function StatsSidebar() {
+export default function StatsSidebar() {
   const immersiveMode = useNetworkStore((s) => s.immersiveMode);
   const neurons = useNetworkStore((s) => s.neurons);
   const activeNeurons = useNetworkStore((s) => s.activeNeurons);

@@ -47,16 +47,14 @@ export default function PostProcessing() {
         density={1.5}
         opacity={0.07}
       />
-      {glitchActive && (
-        <Glitch
-          delay={new Vector2(0, 0)}
-          duration={new Vector2(0.1, 0.3)}
-          strength={new Vector2(0.2, 0.4)}
-          mode={GlitchMode.SPORADIC}
-          active
-          ratio={0.85}
-        />
-      )}
+      <Glitch
+        delay={new Vector2(0, 0)}
+        duration={new Vector2(0.1, 0.3)}
+        strength={new Vector2(glitchActive ? 0.2 : 0, glitchActive ? 0.4 : 0)}
+        mode={GlitchMode.SPORADIC}
+        active={glitchActive}
+        ratio={0.85}
+      />
     </EffectComposer>
   );
 }

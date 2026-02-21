@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNetworkStore } from '@/stores/networkStore';
 
-export function ImmersiveOverlay() {
+export default function ImmersiveOverlay() {
   const immersiveMode = useNetworkStore((s) => s.immersiveMode);
   const [visible, setVisible] = useState(false);
 

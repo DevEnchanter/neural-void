@@ -5,7 +5,7 @@ import { useNetworkStore } from '@/stores/networkStore';
 import { Slider } from '@/components/ui/slider';
 import { Button } from '@/components/ui/button';
 
-export function ControlBar() {
+export default function ControlBar() {
   const immersiveMode = useNetworkStore((s) => s.immersiveMode);
   const pulseSpeed = useNetworkStore((s) => s.pulseSpeed);
   const density = useNetworkStore((s) => s.density);
