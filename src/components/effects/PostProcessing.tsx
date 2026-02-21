@@ -1,16 +1,14 @@
 'use client';
 
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import {
   EffectComposer,
   Bloom,
   ChromaticAberration,
   Vignette,
-  Noise,
-  Scanline,
   Glitch,
 } from '@react-three/postprocessing';
-import { BlendFunction, GlitchMode } from 'postprocessing';
+import { GlitchMode } from 'postprocessing';
 import { Vector2 } from 'three';
 import { useNetworkStore } from '@/stores/networkStore';
 
@@ -37,16 +35,6 @@ export default function PostProcessing() {
         modulationOffset={0.0}
       />
       <Vignette offset={0.3} darkness={0.9} />
-      <Noise
-        premultiply
-        blendFunction={BlendFunction.ADD}
-        opacity={immersiveMode ? 0.1 : 0.06}
-      />
-      <Scanline
-        blendFunction={BlendFunction.OVERLAY}
-        density={1.5}
-        opacity={0.07}
-      />
       <Glitch
         delay={new Vector2(0, 0)}
         duration={new Vector2(0.1, 0.3)}
